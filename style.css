@@ -22,7 +22,7 @@ i, svg{
     background: rgb(2, 129, 45);
 }
 .hihat-pad{
-    background: rgb(124, 3, 114);
+    background: rgb(124, 3, 39);
 }
 .sequencer{
     display:flex;
@@ -51,7 +51,7 @@ i, svg{
 .controls button{
     padding: 1rem;
     border: none;
-    background-color: rgb(150, 4, 4);
+    background-color: rgb(129, 120, 120);
     color: white;
     font-size: 1rem;
     cursor: pointer;
@@ -67,12 +67,12 @@ i, svg{
     background: rgb(19, 231, 90);
 }
 .hihat-pad.active{
-    background: rgb(250, 64, 234);
+    background: rgb(209, 5, 66);
 }
 .play{
     padding: 1rem 2rem;
     font-size: 1.5rem;
-    background: grey;
+    background: rgb(129, 120, 120);
     color: white;
     border: none;
     cursor: pointer;
@@ -81,4 +81,12 @@ i, svg{
 select{
     padding: 1rem;
     font-size: 1rem;
+}
+
+@keyframes playTrack{
+    from{
+        transform: scale(1);
+    }to{
+        transform: scale(1.25);
+    }
 }
