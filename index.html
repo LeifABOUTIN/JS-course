@@ -16,9 +16,8 @@
                     <i class="fas fa-volume-mute"></i>
                 </button>
                 <select name="kick-select" id="kick-select">
-                    <option value="./sounds/kick-classic.wav">Classic Kick</option>
-                    <option value="./sounds/kick-808">808 Kick</option>
-                    <option value="./sounds/kick-heavy">Kick Heavy</option>
+                    <option value="./sounds/kick-classic.mp4">Classic Kick</option>
+                    <option value="./sounds/kick-tron.mp4">Kick Tron</option>
                 </select>
             </div>
             <div class="kick">
@@ -39,9 +38,8 @@
                     <i class="fas fa-volume-mute"></i>
                 </button>
                 <select name="snare-select" id="snare-select">
-                    <option value="./sounds/snare-acoustic01.wav">Classic Snare</option>
-                    <option value="./sounds/snare-808">808 Snare</option>
-                    <option value="./sounds/snare-vinyl02">Snare Vinyl</option>
+                    <option value="./sounds/snare-acoustic01.mp4">Classic Snare</option>
+                    <option value="./sounds/snare-modular.mp4">Snare modular</option>
                 </select>
             </div>
             <div class="snare">
@@ -62,8 +60,8 @@
                     <i class="fas fa-volume-mute"></i>
                 </button>
                 <select name="hihat-select" id="hihat-select">
-                    <option value="./sounds/hihat-acoustic01.wav">Hihat accoustic</option>
-                    <option value="./sounds/hihat-808">808 hihat</option>
+                    <option value="./sounds/hihat-acoustic01.mp4">Hihat accoustic</option>
+                    <option value="./sounds/perc-hollow.mp4">Perc Hollow</option>
                 </select>
             </div>
             <div class="hihat">
@@ -78,6 +76,10 @@
             </div>
         </div>
         <button class="play">Play</button>
+        <div class="tempo">
+            <input type="range" class="tempo-slider" max="300" min="20" value="150">
+            <p>Tempo: <span class="tempo-nr">150</span></p>
+        </div>
     </div>
     <audio class="kick-sound" src="./sounds/kick-classic.mp4"></audio>
     <audio class="snare-sound" src="./sounds/snare-acoustic01.mp4"></audio>

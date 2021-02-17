@@ -82,7 +82,28 @@ select{
     padding: 1rem;
     font-size: 1rem;
 }
-
+.mute.active{
+    background-color: rgb(199, 184, 184);
+}
+.tempo{
+    margin: 3rem;
+    padding: 30%;
+}
+.tempo-slider{
+    padding: 0.2rem;
+    -webkit-appearance: none;
+    margin: 1rem 0rem;
+    width: 100%;
+    position: relative;
+    background-color: rgb(88, 88, 88);
+    cursor: pointer;
+    border-radius: 1rem;
+}
+.tempo p{
+    text-align: center;
+    margin: 2rem;
+    font-size: 1.5rem;
+}
 @keyframes playTrack{
     from{
         transform: scale(1);
