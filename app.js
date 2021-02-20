@@ -1,146 +1,79 @@
-//Let's grab
-const todoInput = document.querySelector('.todo-input')
-const todoButton = document.querySelector('.todo-button')
-const todoList = document.querySelector('.todo-list')
-const filterOption = document.querySelector('.filter-todo')
+const apiKey = "563492ad6f91700001000001552795a9259b48ce9b507ec5fc5819ff";
+const curatedEndpoint = `https://api.pexels.com/v1/curated`;
+const searchEndpoint = "https://api.pexels.com/v1/search";
+const gallery = document.querySelector(".gallery");
+const searchInput = document.querySelector(".search-input");
+const form = document.querySelector(".search-form");
+const more = document.querySelector(".more");
+let searchValue;
+let page = 1;
+let fetchLink;
+let currentSearch;
 
-//Lets Listen
-document.addEventListener('DOMContentLoaded', getTodosFromLS)
-todoButton.addEventListener('click', addTodo)
-todoList.addEventListener('click', deleteCheck)
-filterOption.addEventListener('click', filterTodo)
+//event listeners
+searchInput.addEventListener("input", updateInput);
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  currentSearch = searchValue;
+  searchPhotos(searchValue);
+});
+more.addEventListener("click", loadMore);
 
-//Let's do
-function addTodo(e){
-    e.preventDefault()
-    //Creating the div for the todos
-    const todoDiv = document.createElement('div')
-    todoDiv.classList.add("todo")
-    //creating the LIs
-    const newTodo = document.createElement('li')
-    newTodo.innerText = todoInput.value
-    newTodo.classList.add('todo-item')
-    todoDiv.appendChild(newTodo)
-    //saving to localstorage
-    saveLocalstorage(todoInput.value)
-    //adding the completed button
-    const completedButton = document.createElement('button')
-    completedButton.innerHTML = '<i class="fas fa-check"></i>'
-    completedButton.classList.add('complete-btn')
-    todoDiv.appendChild(completedButton)
-    //adding the delete button
-    const trashButton = document.createElement('button')
-    trashButton.innerHTML = '<i class="fas fa-trash"></i>'
-    trashButton.classList.add('trash-btn')
-    todoDiv.appendChild(trashButton)
-    //append to list in html
-    todoList.appendChild(todoDiv)
-    //emptying input
-    todoInput.value = ""
+async function dataFetchingPexelAPI(url) {
+  const fetchData = await fetch(url, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: apiKey,
+    },
+  });
+  const Data = await fetchData.json();
+  return Data;
 }
 
-function deleteCheck(e){
-    const item = e.target
-    //delete item
-    if(item.classList[0] === "trash-btn"){
-        const todo = item.parentElement
-        todo.classList.add('fall')
-        removeTodosFromLS(todo)
-        todo.addEventListener('transitionend', function() {
-            todo.remove()
-        })
-    }
-    //check the item
-    if(item.classList[0] === "complete-btn"){
-        const todo = item.parentElement
-        todo.classList.toggle('completed')
-    }
+function generatingPicture(data) {
+  data.photos.forEach((photo) => {
+    const galleryImg = document.createElement("div");
+    galleryImg.classList.add("gallery-img");
+    galleryImg.innerHTML = `
+    <div class="gallery-info">
+    <p> ${photo.photographer}</p>
+    <a href=${photo.src.original}>Download</a>
+    </div>
+    <img src=${photo.src.large}></img>
+    
+    `;
+    gallery.appendChild(galleryImg);
+  });
+}
+function updateInput(e) {
+  searchValue = e.target.value;
+}
+async function getCuratedPhotos() {
+  fetchLink = curatedEndpoint;
+  const data = await dataFetchingPexelAPI(fetchLink);
+  generatingPicture(data);
 }
 
-function filterTodo(e){
-    const todos = todoList.childNodes
-    console.log(todos)
-    todos.forEach(function(todo){
-        switch(e.target.value){
-            case "all":
-                todo.style.display = 'flex'
-                break
-            case "checked":
-                if(todo.classList.contains('completed')){
-                    todo.style.display = 'flex'
-                }else{
-                    todo.style.display = 'none'
-                }
-                break
-            case "unchecked":
-                if(!todo.classList.contains('completed')){
-                    todo.style.display = 'flex'
-                }else{
-                    todo.style.display = 'none'
-                }
-                break
-        }
-    })
+async function searchPhotos(input) {
+  clearSomeSpace();
+  fetchLink = `${searchEndpoint}?query=${input}+query&per_page=15&page=${page}`;
+  const data = await dataFetchingPexelAPI(fetchLink);
+  generatingPicture(data);
 }
 
-//localstorage storing
-
-function saveLocalstorage(todo){
-    //is there a localstorage already?
-    let todos;
-    if(localStorage.getItem('todos') === null){
-        todos = []
-    }
-    else{
-        todos = JSON.parse(localStorage.getItem('todos'))
-    }
-    todos.push(todo)
-    localStorage.setItem('todos', JSON.stringify(todos))
-}
-//localstorage get the todos from ls
-function getTodosFromLS(){
-    let todos
-    //lets check if localstorage is empty or not
-    if (localStorage.getItem('todos') === null){
-        todos = []
-    }
-    else{
-        todos = JSON.parse(localStorage.getItem('todos'))
-    }
-    todos.forEach(function(todo){
-         //Creating the div for the todos
-        const todoDiv = document.createElement('div')
-        todoDiv.classList.add("todo")
-        //creating the LIs
-        const newTodo = document.createElement('li')
-        newTodo.innerText = todo
-        newTodo.classList.add('todo-item')
-        todoDiv.appendChild(newTodo)
-        //adding the completed button   
-        const completedButton = document.createElement('button')
-        completedButton.innerHTML = '<i class="fas fa-check"></i>'
-        completedButton.classList.add('complete-btn')
-        todoDiv.appendChild(completedButton)
-        //adding the delete button
-        const trashButton = document.createElement('button')
-        trashButton.innerHTML = '<i class="fas fa-trash"></i>'
-        trashButton.classList.add('trash-btn')
-        todoDiv.appendChild(trashButton)
-        //append to list in html
-        todoList.appendChild(todoDiv)
-    })
+function clearSomeSpace() {
+  gallery.innerHTML = "";
+  searchInput.value = "";
 }
 
-function removeTodosFromLS(todo){
-    let todos
-    //lets check if localstorage is empty or not
-    if (localStorage.getItem('todos') === null){
-        todos = []
-    }
-    else{
-        todos = JSON.parse(localStorage.getItem('todos'))
-    }
-    const todoIndex = todo.children[0].innerText
-    todos.splice(todos.indexOf(todoIndex), 1)
-    localStorage.setItem('todos', JSON.stringify(todos))
+async function loadMore() {
+  page++;
+  if (searchValue) {
+    fetchLink = `${searchEndpoint}?query=${searchValue}+query&per_page=15&page=${page}`;
+  } else {
+    fetchLink = `${curatedEndpoint}?per_page=15&page=${page}`;
+  }
+  const data = await dataFetchingPexelAPI(fetchLink);
+  generatingPicture(data);
 }
+getCuratedPhotos();

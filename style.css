@@ -1,125 +1,81 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
 }
-
-body{
-    background-image: linear-gradient(120deg, #F6d365, #fda085);
-    color: #FFF;
-    font-family: "Ubuntu", sans-serif;
-    min-height:  100vh;
+body {
+  font-family: "Roboto", sans-serif;
 }
 header {
-    font-size: 2rem;
-  }
-header, form{
-    
-    min-height: 20vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 30vh;
+  justify-content: center;
+  align-items: center;
+}
+header h2 {
+  padding: 2rem;
+}
+#logo {
+  text-decoration: none;
+  color: black;
+}
+.search-form {
+  padding: 2rem;
+  display: flex;
+}
+.search-form input {
+  font-size: 2rem;
+  padding: 0.5rem;
+  width: 100;
+  border: none;
+  border: 2px solid rgb(61, 13, 61);
+}
+.search-form button {
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  background: rgb(61, 13, 61);
+  font-size: 1rem;
+  color: white;
 }
 
-form input, form button {
-    min-height: 3rem;
-    padding: 0.5rem;
-    font-style: 2rem;
-    border: none;
-    background: #FFF;
+.gallery-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+  padding: 0.5rem 0rem;
+}
+.gallery-info a {
+  color: gray;
 }
 
-form button{
-    color: #fda085;
-    background-color: #FFF;
-    cursor: pointer;
-    transition: all 0.5s ease;
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  padding: 2rem 0rem;
+  width: 80%;
+  margin: auto;
+  column-gap: 3rem;
+  row-gap: 5rem;
 }
-form button:hover{
-    background: #fda085;
-    color: white;
+.gallery-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-
-.todo-container{
-    display:flex;
-    justify-content: center;
-    align-items: center;
+.nav-button {
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.todo-list{
-    min-width: 30%;
-    list-style: none;
-}
-.todo {
-    margin: 0.5rem;
-    background: white;
-    color: black;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.7s ease;
-
-}
-.todo li{
-    flex: 1;
-}
-
-.trash-btn, .complete-btn{
-    background: #fda085;
-    color: white;
-    border: none;
-    padding: 1rem;
-    cursor: pointer;
-    font-size: 1rem;
-}
-.complete-btn{
-    background: rgb(31, 102, 31)
-}
-
-.todo-item{
-    padding: 0rem 0.5rem;
-}
-.fa-trash, .fa-check{
-   pointer-events: none; 
-}
-
-.completed{
-    text-decoration: line-through;
-    opacity: 0.3;
-}
-.fall{
-    transform: translateY(8rem) rotateZ(20deg);
-    opacity: 0;
-}
-select{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    border: none;
-}
-.select{
-    margin: 1rem;
-    position: relative;
-    overflow: hidden;
-}
-select{
-    color: #ff6f47;
-    width: 12rem;
-    cursor: pointer;
-    padding: 1rem;
-}
-.select::after{
-    content: "\25BC";
-    position: absolute;
-    background: #ff6f47;
-    top: 0;
-    right: 0;
-    padding: 1rem;
-    pointer-events: none;
-    transition: all 0.3s ease;
-}
-.select:hover::after{
-    background: white;
-    color: #ff6f47
+.more {
+  padding: 1rem 3rem;
+  background: rgb(61, 13, 61);
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
